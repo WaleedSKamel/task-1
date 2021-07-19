@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
+use PDF;
 
 class UserController extends Controller
 {
@@ -17,7 +18,11 @@ class UserController extends Controller
     {
         try {
             $users = User::query()->orderByDesc('created_at')->get();
-
+            if(\Route::currentRouteName() == 'users.download')
+            {
+                $pdf = PDF::loadView('users.index',compact('users'));
+                return $pdf->download('users.pdf');
+            }
             return view('users.index', compact('users'));
         } catch (\Exception $exception) {
             Alert::error('Exception', $exception->getMessage());
