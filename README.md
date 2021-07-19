@@ -1,7 +1,7 @@
 # Run projects
-composer install 
-create database
-php artisan migrate
+* composer install 
+* create database
+* php artisan migrate
 
-php artisan storage:link
+* php artisan storage:link
 
